@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stopwatch</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+}
+#time{
+font-size: 100px;
+color: green;
+}
+h1 {
+font-size: 48px;
+margin-top: 50px;
+}
+button {
+padding: 20px 20px;
+margin: 30px;
+border-radius: 5px;
+font-size: 25px;
+font-weight: bold;
+background-color: rgba(210, 208, 208, 0.905);
+}
+#lapcount{
+font-size: 30px;
+font-weight: bolder;
+color: green;
+}
+</style>
+</head>
+<body>
+<h1>STOPWATCH</h1>
+<div id="time">
+<span id="minutes">00</span>:<span id="seconds">00</span>:<span
+id="milliseconds">00</span>
+</div>
+<div>
+<button id="start" onclick="start()">START</button>
+<button id="stop" onclick="stop()">STOP</button>
+<button id="reset" onclick="reset()">RESET</button>
+<button id="lap" onclick="lap()">LAP</button>
+</div>
+<div id="lapcount">
+</div>
+<script>
+var minutes = 0;
+var seconds = 0;
+var milliseconds = 0;
+var intervalId;
+var lapcount=0;
+function start() {
+intervalId = setInterval(function() {
+milliseconds += 5;
+if (milliseconds >= 1000) {
+seconds++;
+milliseconds = 0;
+}
+if (seconds >= 60) {
+minutes++;
+seconds = 0;
+}
+document.getElementById("minutes").innerHTML =
+('00'+minutes).slice(-2);
+document.getElementById("seconds").innerHTML =
+('00'+seconds).slice(-2);
+document.getElementById("milliseconds").innerHTML =
+('00'+milliseconds).slice(-2);
+}, 5);
+document.getElementById("start").disabled = true;
+document.getElementById("stop").disabled = false;
+document.getElementById("reset").disabled = true;
+document.getElementById("lap").disabled= false;
+}
+function stop() {
+clearInterval(intervalId);
+document.getElementById("start").disabled = false;
+document.getElementById("stop").disabled = true;
+document.getElementById("reset").disabled = false;
+document.getElementById("lap").disabled= true;
+}
+function reset() {
+minutes = 0;
+seconds = 0;
+milliseconds = 0;
+lapcount=0;
+document.getElementById("minutes").innerHTML = "00";
+document.getElementById("seconds").innerHTML = "00";
+document.getElementById("milliseconds").innerHTML = "00";
+document.getElementById("lapcount").innerHTML=" ";
+document.getElementById("start").disabled = false;
+document.getElementById("stop").disabled = true;
+document.getElementById("reset").disabled = true;
+document.getElementById("lap").disabled= true;
+}
+function lap() {
+lapcount++;
+minutes=document.getElementById("minutes").innerHTML;
+seconds=document.getElementById("seconds").innerHTML;
+milliseconds=(document.getElementById("milliseconds").innerHTML).s
+lice(-2);
+document.getElementById("lapcount").innerHTML+="LAP "+lapcount+" :"+minutes+" : "+seconds+" : "+milliseconds+"<br>";
+}
+</script>
+</body>
+</html>
